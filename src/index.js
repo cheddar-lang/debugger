@@ -219,6 +219,10 @@ export default class Launch {
 
     update() {
         this.data = this.dispatchAction();
+        if (this.data === false) {
+            this.stop();
+            process.exit(0);
+        }
 
         // Update selected line
         this.posTable.setData( this.getPositionData() );
@@ -232,6 +236,7 @@ export default class Launch {
 
     registerActions() {
         this.doStop.press = () => this.stop();
+        this.doStep.press = () => this.didChange();
         this.screen.key(['C-c', 'q'], () => this.stop());
     }
 }

@@ -1,41 +1,36 @@
-let stacks = [
-    [],    // A
-    []     // B
-];
+let stacks = [ ]; // Data items
+let loops = [];
 let index = 0;
-let prog = cheddar.argv[1] == "-e" ? cheddar.argv.slice(2) : String::IO.read(cheddar.argv[1]);
-func pop(arr){
-    return arr.len ? arr.pop() : 0;
-};
-func peek(arr){
-    return arr.len ? arr[-1] : 1;
-};
-for(let i = 0; i < prog.len; i += 1){
-    let c = prog[i];
-    if(c == "+"){
-        stacks[index].push(peek(stacks[index]) + peek(stacks[1 - index]));
-    } else if(c == "-"){
-        stacks[index].push(peek(stacks[index]) - peek(stacks[1 - index]));
-    } else if(c == "@"){
-        index = 1 - index;
-    } else if(c == "!"){
-        stacks[index].push(1);
-    } else if(c == "."){
-        IO.printf(@"pop(stacks[index]));
-    } else if(c == "<"){
-        stacks[index].push(pop(stacks[index - 1]));
-    } else if(c == ">"){
-        stacks[index - 1].push(peek(stacks[index]));
-    } else if(c == "^"){
-        pop(stacks[index]);
-    } else if(c == "v"){
-        let top1 = pop(stacks[index]);
-        let top2 = pop(stacks[1 - index]);
-        stacks[1 - index].push(top1);
-        stacks[index].push(top2);
-    } else if(c == "#"){
-        stacks = stacks.map(stack -> stack);
-    }
-}
+let next = 0;
 
-print stacks;
+let prog = "--<-<<+[+[<+>--->->->-<<<]>]<<--.<++++++.<<-..<<.<+.>>.>>.<<<.+++.>>.>>-.<<<+.";
+
+let output = "";
+
+let char;
+
+for (let i = 0; i < prog.len; i += 1) {
+    char = prog[i];
+
+    if (char == '>') {
+        index += 1;
+    } else if (char == '<') {
+        index -= 1;
+    } else if (char == '+') {
+        stacks[index] = ( stacks[index] is what is nil ? 1 : stacks[index] + 1 );
+    } else if (char == '-') {
+        stacks[index] = ( stacks[index] is what is nil ? -1 : stacks[index] - 1 );
+    } else if (char == '.') {
+        output += @" stacks[index];
+    } else if (char == '[') {
+        loops.unshift( stacks[index] ? next : -1 );
+    } else if (char == ']') {
+        if ( stacks[index] ) {
+            next = loops[0];
+        } else {
+            loop.shift();
+        }
+    }
+};
+
+print output;

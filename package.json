@@ -23,5 +23,8 @@
   },
   "dependencies": {
     "blessed": "^0.1.81"
+  },
+  "optionalDependencies": {
+    "cheddar-lang": "^1.0.3"
   }
 }
